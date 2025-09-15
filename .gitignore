@@ -1,5 +1,8 @@
-node_modules/
+# Entorno virtual
+venv/
+
+# Logs
+*.log
+
+# Configuraciones locales
 .env
-npm-debug.log
-yarn-error.log
-dist/
