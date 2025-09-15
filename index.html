@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 👈 importante -->
+  <title>QR - UDENAR</title>
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+    }
+    #qrImage {
+      max-width: 100%;
+      height: auto;
+    }
+    .box {
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .creator-box {
+      max-width: 280px;
+    }
+  </style>
+</head>
+<body class="has-background-light">
+
+<section class="section">
+  <div class="container">
+
+    <!-- Título -->
+    <h1 class="title has-text-centered mb-5">Generador Código QR</h1>
+
+    <!-- Formulario -->
+    <div id="qrFormContainer" class="box">
+      <form id="qrForm">
+        <div class="field">
+          <label class="label" for="data">Texto o URL:</label>
+          <div class="control">
+            <input class="input is-medium" type="text" id="data" name="data" placeholder="https://ejemplo.com" required>
+          </div>
+        </div>
+        <div class="control has-text-centered mt-3">
+          <button type="submit" class="button is-primary is-medium is-fullwidth">Generar QR</button>
+        </div>
+      </form>
+    </div>
+
+<!-- Resultado -->
+<div id="qrResult" class="has-text-centered" style="display:none;">
+  <h5 class="subtitle is-5">Tu código QR:</h5>
+  <figure class="image is-inline-block">
+    <img id="qrImage" alt="QR generado">
+  </figure>
+  <div class="buttons is-centered is-flex is-flex-wrap-wrap" style="margin-top:0;">
+    <a id="downloadLink" class="button is-link m-1 is-fullwidth-mobile">Descargar QR</a>
+    <button id="regenerateBtn" class="button is-success m-1 is-fullwidth-mobile">Volver a generar</button>
+  </div>
+</div>
+
+</section>
+
+    <!-- Perfil del creador -->
+    <div class="box p-3 mb-5 creator-box mx-auto">
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-32x32">
+            <img class="is-rounded" src="tu-foto.jpg" alt="Foto del creador">
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content is-small">
+            <p class="m-0">
+              <span class="has-text-grey">Proyecto:</span> <strong>Rene Ordoñez</strong><br>
+              <small class="has-text-grey">Licenciado en Informática</small>
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+<script>
+  const qrForm = document.getElementById("qrForm");
+  const qrFormContainer = document.getElementById("qrFormContainer");
+  const qrResult = document.getElementById("qrResult");
+  const qrImage = document.getElementById("qrImage");
+  const downloadLink = document.getElementById("downloadLink");
+  const regenerateBtn = document.getElementById("regenerateBtn");
+
+  qrForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const data = encodeURIComponent(document.getElementById("data").value);
+    const qrUrl = `https://ciesju.udenar.edu.co/qr-api/generate-qr/?data=${data}`;
+
+    // Fecha para nombre del archivo
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const filename = `QR-UDENAR-${yyyy}-${mm}-${dd}.png`;
+
+    qrImage.src = qrUrl;
+    downloadLink.href = qrUrl;
+    downloadLink.setAttribute("download", filename);
+
+    qrFormContainer.style.display = "none"; // ocultar formulario
+    qrResult.style.display = "block";       // mostrar resultado
+  });
+
+  regenerateBtn.addEventListener("click", function() {
+    qrResult.style.display = "none";        // ocultar resultado
+    qrFormContainer.style.display = "block"; // mostrar formulario
+    qrForm.reset();                         // limpiar campo de texto
+  });
+</script>
+
+</body>
+</html>
