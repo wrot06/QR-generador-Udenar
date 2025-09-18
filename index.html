@@ -40,9 +40,19 @@
             <input class="input is-medium" type="text" id="data" name="data" placeholder="https://ejemplo.com" required>
           </div>
         </div>
-        <div class="control has-text-centered mt-3">
-          <button type="submit" class="button is-primary is-medium is-fullwidth">Generar QR</button>
-        </div>
+<div class="buttons has-addons is-justify-content-center mt-3">
+  <!-- Botón atrás -->
+  <a href="../" class="button is-danger">
+    ATRÁS
+  </a>
+
+  <!-- Botón generar QR -->
+  <button type="submit" class="button is-link is-selected">
+    Generar QR
+  </button>
+</div>
+
+
       </form>
     </div>
 
@@ -52,10 +62,14 @@
   <figure class="image is-inline-block">
     <img id="qrImage" alt="QR generado">
   </figure>
-  <div class="buttons is-centered is-flex is-flex-wrap-wrap" style="margin-top:0;">
-    <a id="downloadLink" class="button is-link m-1 is-fullwidth-mobile">Descargar QR</a>
-    <button id="regenerateBtn" class="button is-success m-1 is-fullwidth-mobile">Volver a generar</button>
-  </div>
+<div class="buttons has-addons is-centered mt-3">
+    <button id="regenerateBtn" class="button is-danger is-selected">
+    Atras
+  </button>
+  <a id="downloadLink" class="button is-link">
+    Descargar QR
+  </a>
+</div>
 </div>
 
 </section>
